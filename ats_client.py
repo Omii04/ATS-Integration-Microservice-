@@ -101,6 +101,7 @@ class GreenhouseClient:
             "phone_numbers": [{"value": payload.get('phone'), "type": "mobile"}]
         }
         
+       
         # Handling resume/website if needed - Greenhouse is complex with attachments.
         # For this simple demo, we'll strip resume_url or add it as a website/link if possible
         if payload.get('resume_url'):
@@ -158,28 +159,10 @@ class GreenhouseClient:
             data = response.json()
             
             applications = []
-            for app in data:
-                # We need candidate info, often included or needs expansion.
-                # Greenhouse list applications vs candidates is tricky.
-                # Assuming 'candidate' is embedded or we have basic info.
-                # Standard Harvest API returns simple objects, might need expansion or fetch candidate separately.
-                # For efficiency/demo, we will map what's available or make a best effort.
-                
-                # Note: Default /applications response might not have email directly usually.
-                # But let's assume standard normalization for the prompt.
-                
-                cand_name = "Unknown"
-                cand_email = "Unknown"
-                
-                # If the API returns candidate details nested:
-                if 'candidate' in app:
-                     # This depends heavily on specific API version/expansion
-                     pass
-
                 applications.append({
                     "id": str(app.get('id')),
-                    "candidate_name": app.get('person', {}).get('name') or cand_name, # Greenhouse uses 'person' sometimes or 'candidate_id'
-                    "email": cand_email, # Often requires separate fetch
+                    "candidate_name": app.get('person', {}).get('name') or "Unknown",
+                    "email": "Unknown", # Email is not always exposed in the basic list response
                     "status": app.get('status') or "APPLIED"
                 })
             return applications

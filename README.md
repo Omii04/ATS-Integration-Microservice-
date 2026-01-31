@@ -13,7 +13,15 @@ It is built using Python 3.9 and designed to be compatible with the Serverless F
 
 - Python 3.9+
 - Pip (Python Package Manager)
-- **Greenhouse Harvest API Key** (Optional for testing)
+- **Greenhouse Harvest API Key** (Optional)
+  - *Note: This service defaults to **Mock Mode** if no API Key is provided.*
+
+## Project Structure
+
+- `ats_client.py`: Core logic for communicating with Greenhouse ATS (or Mock data).
+- `handler.py`: AWS Lambda handlers for API Gateway events.
+- `local_runner.py`: Flask-based runner for local testing on Windows.
+- `serverless.yml`: Infrastructure-as-Code configuration.
 
 ## Quick Start (Local Runner)
 
@@ -26,7 +34,11 @@ Due to Windows environment compatibility, we recommend using the included `local
 
 2. **Configure Environment**:
    - The system automatically uses **Mock Mode** (dummy data) if no API key is provided.
-   - To use real data, open `.env` and paste your key:
+   - To use real data:
+     1. Log in to your Greenhouse Dashboard.
+     2. Go to **Configure > Dev Center > API Credential Management**.
+     3. Create a new **Harvest API Key**.
+     4. Open `.env` and paste your key:
      ```env
      ATS_API_KEY=your_actual_api_key_here
      ```
