@@ -37,7 +37,7 @@ def create_candidate(event, context):
         required_fields = ['name', 'email', 'job_id']
         for field in required_fields:
             if field not in payload:
-                 return _response(400, {"error": f"Missing required field: {field}"})
+                return _response(400, {"error": f"Missing required field: {field}"})
 
         result = ats_client.create_candidate(payload)
         return _response(201, result)
@@ -53,7 +53,7 @@ def get_applications(event, context):
         job_id = params.get('job_id')
         
         if not job_id:
-             return _response(400, {"error": "Missing required query parameter: job_id"})
+            return _response(400, {"error": "Missing required query parameter: job_id"})
 
         applications = ats_client.get_applications(job_id)
         return _response(200, applications)

@@ -159,6 +159,7 @@ class GreenhouseClient:
             data = response.json()
             
             applications = []
+            for app in data:
                 applications.append({
                     "id": str(app.get('id')),
                     "candidate_name": app.get('person', {}).get('name') or "Unknown",
